@@ -1,4 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* 🌤️ Thème clair par défaut */
+body {
+  @apply bg-background text-foreground transition-colors duration-300;
+}
+
+/* 🌙 Thème sombre */
+.dark body {
+  @apply bg-dark-background text-dark-foreground;
+}
+
+/* 🔲 Cartes / sections */
+.card {
+  @apply bg-card border border-border rounded-lg shadow-sm;
+}
+.dark .card {
+  @apply bg-dark-card border-dark-border;
+}

@@ -1,0 +1,62 @@
+<nav class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <a routerLink="/" class="flex items-center gap-2 text-primary font-bold text-xl">
+        <i class="bi bi-car-front-fill h-6 w-6"></i>
+        <span>CovoitGo</span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-6">
+        <a routerLink="/search" class="text-foreground hover:text-primary transition-colors">
+          Rechercher un trajet
+        </a>
+        <a routerLink="/create" class="text-foreground hover:text-primary transition-colors">
+          Proposer un trajet
+        </a>
+        <div class="flex gap-2">
+          <a routerLink="/login">
+            <button class="border px-4 py-2 rounded-md border-border hover:bg-muted transition">Connexion</button>
+          </a>
+          <a routerLink="/register">
+            <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition">Inscription</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden text-foreground"
+        (click)="toggleMenu()"
+      >
+        <i [ngClass]="mobileMenuOpen ? 'bi bi-x-lg h-8 w-8' : 'bi bi-list h-8 w-8'"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div *ngIf="mobileMenuOpen" class="md:hidden py-4 space-y-4 border-t border-border">
+      <a
+        routerLink="/search"
+        class="block text-foreground hover:text-primary transition-colors"
+        (click)="closeMenu()"
+      >
+        Rechercher un trajet
+      </a>
+      <a
+        routerLink="/create"
+        class="block text-foreground hover:text-primary transition-colors"
+        (click)="closeMenu()"
+      >
+        Proposer un trajet
+      </a>
+      <div class="flex flex-col gap-2 pt-2">
+        <a routerLink="/login" (click)="closeMenu()">
+          <button class="border px-4 py-2 rounded-md border-border w-full">Connexion</button>
+        </a>
+        <a routerLink="/register" (click)="closeMenu()">
+          <button class="bg-primary text-white px-4 py-2 rounded-md w-full">Inscription</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
