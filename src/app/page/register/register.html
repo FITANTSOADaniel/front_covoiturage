@@ -1,0 +1,85 @@
+<div class="min-h-screen bg-background flex flex-col">
+
+  <div class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="max-w-md w-full">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold text-center mb-6">Inscription</h2>
+
+        <form (submit)="handleSubmit($event)" class="space-y-4">
+
+            <div class="space-y-2">
+            <label class="text-sm font-medium flex items-center gap-2">
+              Nom complet
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="nom"
+              name="nom"
+              placeholder="Votre nom"
+              required
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-sm font-medium flex items-center gap-2">
+              Email
+            </label>
+            <input
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="votre@email.com"
+              required
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-sm font-medium flex items-center gap-2">
+              Rôle :
+            </label>
+            <select
+              [(ngModel)]="role"
+              name="role"
+              required
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+            >
+              <option value="" disabled selected>Choisissez votre rôle</option>
+              <option value="conducteur">Conducteur</option>
+              <option value="passager">Passager</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-sm font-medium flex items-center gap-2">
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="••••••••"
+              required
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-primary text-white py-2 rounded-lg font-medium hover:opacity-90 transition"
+          >
+            S'inscrire
+          </button>
+        </form>
+
+        <div class="mt-6 text-center text-sm text-gray-600">
+          Vous avez déjà un compte ?
+          <a routerLink="/register" class="text-primary hover:underline font-medium">
+            Se connecter
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

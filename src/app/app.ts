@@ -6,12 +6,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { NavBar } from './components/nav-bar/nav-bar';
-import { Home } from './page/home/home';
-import { Hero } from './components/hero/hero';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Home, NavBar, Hero, CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
+  imports: [RouterOutlet, NavBar, CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
