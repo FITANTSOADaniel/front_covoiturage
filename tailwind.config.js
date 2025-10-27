@@ -3,21 +3,21 @@ export default {
   content: [
     "./src/**/*.{html,ts}",
   ],
-  darkMode: ["class"], // Active le mode sombre via <html class="dark">
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       colors: {
-        // 🎨 Thème clair
         background: "#f9fafb",
         foreground: "#111827",
 
-        // Couleurs principales
         primary: {
-          DEFAULT: "#2563eb",      // Bleu principal
+          DEFAULT: "#2563eb",
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#16a34a",      // Vert doux
+          DEFAULT: "#16a34a",
           foreground: "#ffffff",
         },
         accent: {
@@ -32,18 +32,6 @@ export default {
         },
         card: "#ffffff",
         border: "#e5e7eb",
-
-        // 🌙 Thème sombre
-        dark: {
-          background: "#111827",
-          foreground: "#f9fafb",
-          card: "#1f2937",
-          border: "#374151",
-          primary: "#3b82f6",
-          secondary: "#22c55e",
-          accent: "#fbbf24",
-          muted: "#1e293b",
-        },
       },
       container: {
         center: true,
