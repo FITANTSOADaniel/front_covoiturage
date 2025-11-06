@@ -1,0 +1,82 @@
+:root{
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --surface: #f8fafc;
+  --primary: #2563eb; /* blue-600 */
+  --primary-foreground: #ffffff;
+  --accent: #3b82f6; /* blue-500 */
+  --border: #e6eef7;
+  --shadow: 0 8px 24px rgba(16,24,40,0.06);
+}
+
+.test-section{ background-color: var(--surface); }
+
+.ride-card{
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,252,255,0.95));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.ride-card:hover{ transform: translateY(-6px); box-shadow: 0 18px 45px rgba(37,99,235,0.08); }
+
+.ride-card .driver-avatar{
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 70%, #ffffff), var(--accent));
+  color: var(--primary-foreground);
+  font-weight: 700;
+  font-size: 1rem;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(37,99,235,0.08);
+}
+
+.ride-card .rating-icon{ color: #f59e0b; /* amber star */ }
+
+.ride-meta .meta-icon{ color: var(--accent); font-size: 1.05rem; }
+.ride-meta .meta-icon.alt{ color: var(--primary); }
+
+.actions-col{ min-width: 140px; }
+.actions-col .price{ color: var(--primary); }
+
+.reserve-btn{
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  color: var(--primary-foreground);
+  padding: 0.55rem 1.05rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  box-shadow: 0 8px 20px rgba(59,130,246,0.12);
+}
+.reserve-btn:hover{ transform: translateY(-3px); box-shadow: 0 14px 40px rgba(59,130,246,0.14); }
+
+/* Responsive tweaks */
+@media (max-width: 768px){
+  .actions-col{ border-left: none !important; padding-left: 0 !important; }
+  .ride-card{ padding: 0; }
+}
+
+/* small utility tweaks for text contrast */
+.text-muted-foreground{ color: var(--muted) !important; }
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease both;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,87 @@
+<section class="py-16 px-4">
+  <div class="container">
+    <app-search></app-search>
+    <div class="text-center mb-12 animate-fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+        Trajets disponibles
+      </h2>
+      <p class="text-muted-foreground text-lg">Découvrez les prochains départs</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-4">
+      <div
+        *ngFor="let ride of mockRides; let i = index"
+        class="hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-slide-up bg-white rounded-xl p-6"
+        [style.animationDelay]="i * 100 + 'ms'"
+      >
+        <div class="grid md:grid-cols-[1fr,auto] gap-6 items-center">
+          <!-- Infos conducteur -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div
+                class="h-12 w-12 rounded-full flex items-center justify-center bg-primary text-white text-lg font-semibold"
+              >
+                {{ ride.driver.charAt(0) }}
+              </div>
+
+              <div>
+                <div class="font-semibold flex items-center gap-2">
+                  <i class="bi bi-person text-primary"></i>
+                  {{ ride.driver }}
+                  <div class="flex items-center gap-1 text-sm text-muted-foreground">
+                    <i class="bi bi-star-fill text-yellow-400"></i>
+                    {{ ride.rating }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Infos trajets -->
+            <div class="flex flex-wrap gap-6">
+              <div class="flex items-center gap-2">
+                <i class="bi bi-geo-alt-fill text-primary"></i>
+                <div>
+                  <div class="font-medium">{{ ride.from }}</div>
+                  <div class="text-xs text-muted-foreground">Départ</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <i class="bi bi-geo-alt text-accent"></i>
+                <div>
+                  <div class="font-medium">{{ ride.to }}</div>
+                  <div class="text-xs text-muted-foreground">Arrivée</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <i class="bi bi-clock text-primary"></i>
+                <div>
+                  <div class="font-medium">{{ ride.time }}</div>
+                  <div class="text-xs text-muted-foreground">{{ ride.date }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 text-sm text-muted-foreground">
+              <span>{{ ride.seats }} places disponibles</span>
+            </div>
+          </div>
+
+          <!-- Prix + Bouton -->
+          <div class="flex flex-col items-center gap-3 md:border-l md:pl-6">
+            <div class="text-3xl font-bold text-primary flex items-center">
+              {{ ride.price }}
+              <i class="bi bi-currency-euro ms-1"></i>
+            </div>
+            <button
+              class="bg-primary text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition"
+            >
+              Réserver
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
