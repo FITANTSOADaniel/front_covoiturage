@@ -1,0 +1,162 @@
+<section class="py-16 px-4">
+  <div class="container">
+
+    <!-- TOAST -->
+    <p-toast></p-toast>
+
+    <!-- TITRE -->
+    <div class="text-center mb-12 animate-fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+        {{ title }}
+      </h2>
+      <p class="text-lg text-muted-foreground">
+        {{ subtitle }}
+      </p>
+    </div>
+
+    <!-- ERREUR -->
+    <div *ngIf="error" class="text-center text-red-500 mb-6">
+      {{ error }}
+    </div>
+
+    <!-- LISTE DES RESERVATIONS -->
+    <div class="max-w-5xl mx-auto space-y-4">
+
+      <div
+        *ngFor="let reservation of reservations; let i = index"
+        class="bg-white rounded-xl p-6 hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-slide-up"
+        [style.animationDelay]="i * 100 + 'ms'"
+      >
+        <div class="grid md:grid-cols-[1fr,auto] gap-6 items-center">
+
+          <!-- ================= INFOS ================= -->
+          <div class="space-y-4">
+
+            <!-- ===== AFFICHAGE CONDUCTEUR ===== -->
+            <ng-container *ngIf="user.isDriver">
+
+              <!-- PASSAGER -->
+              <div class="flex items-center gap-4">
+                <div class="h-12 w-12 rounded-full bg-primary text-white flex items-center justify-center text-lg font-semibold">
+                  {{ reservation.passager.firstName.charAt(0) }}
+                </div>
+                <div>
+                  <div class="font-semibold flex items-center gap-2">
+                    <i class="bi bi-person text-primary"></i>
+                    {{ reservation.passager.firstName }} {{ reservation.passager.name }}
+                  </div>
+                  <div class="text-sm text-muted-foreground">Passager</div>
+                </div>
+              </div>
+
+            </ng-container>
+
+            <!-- ===== AFFICHAGE PASSAGER ===== -->
+            <ng-container *ngIf="!user.isDriver">
+
+              <!-- CONDUCTEUR -->
+              <div class="flex items-center gap-4">
+                <div class="h-12 w-12 rounded-full bg-primary text-white flex items-center justify-center text-lg font-semibold">
+                  {{ reservation.trajet.driver.firstName.charAt(0) }}
+                </div>
+                <div>
+                  <div class="font-semibold flex items-center gap-2">
+                    <i class="bi bi-person text-primary"></i>
+                    {{ reservation.trajet.driver.firstName }}
+                    {{ reservation.trajet.driver.name }}
+                  </div>
+                  <div class="text-sm text-muted-foreground">Conducteur</div>
+                </div>
+              </div>
+
+            </ng-container>
+
+            <!-- TRAJET -->
+            <div class="flex flex-wrap gap-6">
+              <div class="flex items-center gap-2">
+                <i class="bi bi-geo-alt-fill text-primary"></i>
+                <div>
+                  <div class="font-medium">{{ reservation.trajet.depart }}</div>
+                  <div class="text-sm text-muted-foreground">Départ</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <i class="bi bi-geo-alt text-accent"></i>
+                <div>
+                  <div class="font-medium">{{ reservation.trajet.destination }}</div>
+                  <div class="text-sm text-muted-foreground">Arrivée</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <i class="bi bi-clock text-primary"></i>
+                <div class="text-sm text-muted-foreground">
+                  {{ reservation.trajet.dateDepart }}
+                </div>
+              </div>
+            </div>
+
+            <!-- DETAILS -->
+            <div class="flex flex-wrap gap-6 text-muted-foreground">
+              <span>{{ reservation.nbPlaces }} place(s)</span>
+              <span>
+                Statut :
+                <span
+                  class="font-semibold"
+                  [ngClass]="{
+                    'text-yellow-600': reservation.status === 'EN ATTENTE',
+                    'text-green-500': reservation.status === 'ACCEPTEE'
+                  }"
+                >
+                  {{ reservation.status }}
+                </span>
+              </span>
+            </div>
+
+          </div>
+
+          <!-- ================= PRIX & ACTION ================= -->
+          <div class="flex flex-col items-center gap-3 md:border-l md:pl-6">
+            <div class="text-3xl font-bold text-primary">
+              {{ reservation.nbPlaces * reservation.trajet.price }} Ar
+            </div>
+            <div class="text-sm text-muted-foreground">
+              Prix du trajet
+            </div>
+
+            <!-- BOUTON SEULEMENT POUR LE CONDUCTEUR -->
+            <button
+              *ngIf="user.isDriver && reservation.status === 'EN ATTENTE'"
+              class="bg-green-500 text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition"
+              (click)="showDialog(reservation.id)"
+            >
+              Accepter
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AUCUNE RESERVATION -->
+      <div
+        *ngIf="reservations.length === 0"
+        class="text-center text-muted-foreground py-12"
+      >
+        Aucune réservation pour le moment
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DIALOG CONFIRMATION -->
+  <div class="card flex justify-center">
+    <p-dialog header="Accepter une réservation" [(visible)]="visible" [modal]="true">
+      <p class="mb-4">Accepter cette réservation ?</p>
+      <div class="flex justify-end gap-2">
+        <p-button label="Annuler" severity="secondary" (click)="visible=false"></p-button>
+        <p-button label="Valider" severity="info" (onClick)="Accepter()"></p-button>
+      </div>
+    </p-dialog>
+  </div>
+</section>

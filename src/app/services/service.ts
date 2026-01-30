@@ -1,75 +1,106 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams  } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Service {
-  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
-
-  getAllUsers(){
-    return this.http.get(`${environment.url}/api/users`, {});
+  private userSubject = new BehaviorSubject<any>(null);
+  user$ = this.userSubject.asObservable();
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {
+    this.userSubject.next(this.findUser());
   }
-
-  //auth
   login(email: string, password: string): Observable<any> {
     return this.http
       .post<any>(`${environment.url}/api/auth/login`, { email, password })
       .pipe(
-        map((response) => {
-        const token = response.token;
+        map(response => {
+          const token = response.token;
 
-        if (token) {
-          localStorage.setItem('sessionUser', token);
-        } else {
-          console.error('Aucun token reçu du backend.');
-        }
-        this.userSubject.next(response);
-
-        return response;
-      }
-        )
+          if (token) {
+            this.cookieService.set('sessionUser', token);
+            this.userSubject.next(this.findUser());
+          }
+          return response;
+        })
       );
   }
+  register(data: any): Observable<any> {
+    return this.http.post(`${environment.url}/api/auth/register`, data);
+  }
+
+  logout() {
+    this.cookieService.delete('sessionUser');
+    this.userSubject.next(null);
+  }
+
+  // ================= USER =================
+
   findUser(): any {
+    const token = this.cookieService.get('sessionUser');
+    if (!token) return null;
+
     try {
-      const decodedToken = this.decodeToken();
-      if (decodedToken) {
-        const user: any = {
-          id: decodedToken.sub,
-          first_name: decodedToken.first_name,
-          last_name: decodedToken.last_name,
-          is_admin: decodedToken.is_admin,
-        };
-        return user;
-      } else {
-        console.log(
-          "Token introuvable"
-        );
-        return null;
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération du token : ", error);
+      const decoded: any = jwtDecode(token);
+      return {
+        email: decoded.sub,
+        firstName: decoded.firstName,
+        name: decoded.name,
+        isDriver: decoded.isDriver,
+        id: decoded.id
+      };
+    } catch {
       return null;
     }
   }
-  decodeToken(): any | null {
-    try {
-      const token = localStorage.getItem("sessionUser");
-      if (token) {
-        const decodedToken: any = jwtDecode(token);
-        return decodedToken;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error("Erreur lors du décodage du token : ", error);
-      return null;
-    }
+
+  addTrajet(data : any){
+    return this.http.post(`${environment.url}/api/trajet`, data);
+  }
+  getAllTrajet(){
+    return this.http.get(`${environment.url}/api/trajet`);
+  }
+  searchRides(from: string, to: string): Observable<any> {
+    let params = new HttpParams()
+      .set('from', from || '')
+      .set('to', to || '');
+
+    return this.http.get(`${environment.url}/api/trajet/search`, { params });
+  }
+  
+  getDetailsTrajet(id: any): any {
+    return this.http.get(`${environment.url}/api/trajet/${id}`, id);
+  }
+
+  reserverTrajet(data: any) {
+    return this.http.post(
+      `${environment.url}/api/reservations`,
+      data
+    );
+  }
+
+  getReservationsByDriver(driverId: number) {
+    return this.http.get(
+      `${environment.url}/api/reservations/driver/${driverId}`
+    );
+  }
+
+  getReservationsByPassager(passagerId: number) {
+    return this.http.get(
+      `${environment.url}/api/reservations/passager/${passagerId}`
+    );
+  }
+  accepter(id: number){
+    return this.http.put(
+      `${environment.url}/api/reservations/${id}`,
+      ''
+    );
   }
 }

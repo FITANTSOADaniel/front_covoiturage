@@ -1,4 +1,21 @@
 @import "@fontsource/inter/index.css";
+@import "primeicons/primeicons.css";
+
+
+/* @import "../node_modules/primeng/resources/primeng.min.css"; */
+/* @import "../node_modules/primeflex/primeflex.scss"; */
+@import "../node_modules/primeicons/primeicons.css";
+/* @import "assets/layout/styles/layout/layout.scss"; */
+
+/* PrimeNG */
+
+/* Demos */
+/* @import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+@import "assets/demo/styles/code.scss"; */
+
+/* @import "../node_modules/ngx-spinner/animations/line-scale.css"; */
+/* @import "../node_modules/ngx-spinner/animations/square-jelly-box.css"; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,3 +29,41 @@ body {
 .card {
   @apply bg-card border border-border rounded-lg shadow-sm;
 }
+
+/* ===== ConfirmDialog ===== */
+.p-confirm-dialog {
+  background-color: #ffffff !important;
+  color: #1f2937; /* gris foncé */
+}
+
+/* Header */
+.p-confirm-dialog .p-dialog-header {
+  background: #ffffff;
+  color: #1f2937;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Contenu */
+.p-confirm-dialog .p-dialog-content {
+  background: #ffffff;
+  color: #374151;
+}
+
+/* Boutons */
+.p-confirm-dialog .p-button {
+  background-color: #2563eb; /* bleu */
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.p-confirm-dialog .p-button.p-button-secondary {
+  background-color: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.p-confirm-dialog .p-button:hover {
+  filter: brightness(0.95);
+}
+
+

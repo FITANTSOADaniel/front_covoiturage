@@ -1,85 +1,124 @@
 <div class="min-h-screen bg-background flex flex-col">
-
   <div class="flex-1 flex items-center justify-center px-4 py-12">
     <div class="max-w-md w-full">
       <div class="bg-white rounded-2xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-center mb-6">Inscription</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">
+          Inscription
+        </h2>
 
-        <form (submit)="handleSubmit($event)" class="space-y-4">
+        <form (submit)="register()" class="space-y-5">
 
-            <div class="space-y-2">
-            <label class="text-sm font-medium flex items-center gap-2">
-              Nom complet
+          <div class="space-y-2">
+            <label class="text-base font-medium flex items-center gap-2">
+              Nom
             </label>
             <input
               type="text"
-              [(ngModel)]="nom"
-              name="nom"
+              [(ngModel)]="userBody.name"
+              name="name"
               placeholder="Votre nom"
               required
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              class="w-full border rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           <div class="space-y-2">
-            <label class="text-sm font-medium flex items-center gap-2">
+            <label class="text-base font-medium flex items-center gap-2">
+              Prénoms
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="userBody.firstName"
+              name="firstName"
+              placeholder="Votre prénom"
+              required
+              class="w-full border rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-base font-medium flex items-center gap-2">
+              Téléphone
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="userBody.phone"
+              name="phone"
+              placeholder="Votre numéro"
+              required
+              class="w-full border rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-base font-medium flex items-center gap-2">
               Email
             </label>
             <input
               type="email"
-              [(ngModel)]="email"
+              [(ngModel)]="userBody.email"
               name="email"
               placeholder="votre@email.com"
               required
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              class="w-full border rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           <div class="space-y-2">
-            <label class="text-sm font-medium flex items-center gap-2">
-              Rôle :
+            <label class="text-base font-medium flex items-center gap-2">
+              Rôle
             </label>
             <select
-              [(ngModel)]="role"
+              [(ngModel)]="userBody.isDriver"
+              [ngModelOptions]="{standalone: true}"
               name="role"
               required
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+              class="w-full border rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary bg-white"
             >
-              <option value="" disabled selected>Choisissez votre rôle</option>
-              <option value="conducteur">Conducteur</option>
-              <option value="passager">Passager</option>
+              <option value="" disabled selected>
+                Choisissez votre rôle
+              </option>
+              <option [ngValue]="true">Conducteur</option>
+              <option [ngValue]="false">Passager</option>
             </select>
           </div>
 
           <div class="space-y-2">
-            <label class="text-sm font-medium flex items-center gap-2">
+            <label class="text-base font-medium flex items-center gap-2">
               Mot de passe
             </label>
             <input
               type="password"
-              [(ngModel)]="password"
+              [(ngModel)]="userBody.password"
               name="password"
               placeholder="••••••••"
               required
-              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              class="w-full border rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           <button
             type="submit"
-            class="w-full bg-primary text-white py-2 rounded-lg font-medium hover:opacity-90 transition"
+            class="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-90 transition text-base"
           >
             S'inscrire
           </button>
         </form>
 
-        <div class="mt-6 text-center text-sm text-gray-600">
+        <div class="mt-6 text-center text-base text-gray-600">
           Vous avez déjà un compte ?
-          <a routerLink="/register" class="text-primary hover:underline font-medium">
+          <a
+            routerLink="/login"
+            class="text-primary hover:underline font-medium"
+          >
             Se connecter
           </a>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="card flex justify-center">
+  <p-toast />
 </div>
