@@ -13,8 +13,8 @@ import { AlertService } from './../../services/alert.service'
 templateUrl: './login.html',
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  email = 'driver@example.com';
+  password = 'driver123';
   status: string = ""
 
   constructor(
